@@ -1,17 +1,78 @@
 
 <!DOCTYPE html>
-<html lang=\"es\">
+<html lang="es">
     <head>
         <title>E2 Formulario</title>
-        <meta charset=\"utf8\"/>
+        <meta charset="utf8"/>
     </head>
     <body>
         <h1>Formulario Registro</h1>
         <form action="E2formulario.php" method="POST">
-            <p>Nombre: <input type="text" name="nombre" /></p>
-            <p>Apellido: <input type="text" name="apellido" /></p>
-            <p>Correo: <input type="text" name="correo"/></p>
-            <p>Fecha nacimiento: <input type="text" name="correo"/></p>
+            <fieldset>
+                <legend>¿QUIEN ERES?</legend>
+                <p><label>Nombre:</label><br> <input type="text" name="nombre" required/></p>
+                <p><label>Apellido:</label><br> <input type="text" name="apellido" /></p>
+                <p><label>Correo:</label><br> <input type="text" name="correo" required/></p>
+                <p><label>Fecha nacimiento:</label><br> 
+                    <select name="dia">
+                        <option disabled selected>dia</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <select name="mes">
+                        <option disabled selected>mes</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                    </select>
+                    <select name="año">
+                        <option disabled selected>año</option>
+                        <option value="1">2017</option>
+                        <option value="2">2016</option>
+                        <option value="3">2015</option>
+                        <option value="4">2014</option>
+                        <option value="5">2013</option>
+                    </select>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                    <legend>¿DE DONDE ERES?</legend>
+                    <p><label>Ciudad:</label><br> <input type="text" name="ciudad" /></p>
+                    <p><label>Codigo postal:</label><br> <input type="number" name="postal" /></p>
+                    <p><label>Correo:</label><br> 
+                        <select name="pais">
+                                <option disabled selected>pais</option>
+                                <option value="ES">España</option>
+                                <option value="DE">Alemania</option>
+                                <option value="RU">Rusia</option>
+                                <option value="KR">Corea del sur</option>
+                                <option value="MX">México</option>
+                                <option value="BE">Bélgica</option>
+                        </select>
+                    </p>
+            </fieldset>
+
+            <fieldset>
+                    <legend>¿COMO QUIERES INICIAR SESION?</legend>
+                    <p><label>Nombre usuario:</label><br> <input type="text" name="usuario" /></p>
+                    <p><label>Contraseña:</label><br> <input type="number" name="contrasena" required/></p>
+                    <p><label>Vuelve a escribir la Contraseña:</label><br> 
+                        <input type="number" name="contrasena2" required/></p>
+            </fieldset>
+
             <p><input type="submit" value="Enviar" /></p>
         </form>
     </body>
