@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>E2 Formulario</title>
+        <meta charset="utf8"/>
+        <style>
+        input:hover {
+					background-color: red;
+				}
+        select:hover {
+			background-color: red;
+		}
+        input:focus {
+			background-color: yellow;
+		}
+        select:focus {
+			background-color: yellow;
+		}
+        body {
+            width: 50%;
+            margin: auto;
+            background:  PowderBlue;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        fieldset {
+            background: MistyRose;
+            margin-top: 20px;
+        }
+        legend {
+            background:  mistyrose;
+            border: 1px black solid;
+            font-weight: bold;
+        }
+        label {
+            font-weight: bold;
+        }
+        h1,h2 {
+            font-family: Georgia, serif;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>Formulario Registro</h1>
+        <h2>Datos usuario</h2>
+        <form action="E2Form.php" method="POST">
+            <fieldset>
+                <legend>¿QUIEN ERES?</legend>
+                <p><label>Nombre: *</label><br> <input type="text" name="nombre" required/></p>
+                <p><label>Apellido:</label><br> <input type="text" name="apellido" /></p>
+                <p><label>Correo: *</label><br> <input type="text" name="correo" required/></p>
+                <p><label>Fecha nacimiento:</label><br> 
+                    <select name="dia">
+                        <option disabled selected>dia</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>       
+                        <option value="7">7</option>       
+                        <option value="8">8</option>       
+                        <option value="9">9</option>       
+                        <option value="10">10</option>       
+                        <option value="11">11</option>       
+                        <option value="12">12</option>       
+                        <option value="13">13</option>       
+                        <option value="14">14</option>       
+                        <option value="15">15</option>       
+                        <option value="16">16</option>       
+                        <option value="17">17</option>       
+                        <option value="18">18</option>       
+                        <option value="19">19</option>       
+                        <option value="20">20</option>       
+                        <option value="21">21</option>       
+                        <option value="22">22</option>       
+                        <option value="23">23</option>       
+                        <option value="24">24</option>       
+                        <option value="25">25</option>       
+                        <option value="26">26</option>       
+                        <option value="27">27</option>       
+                        <option value="28">28</option>       
+                        <option value="29">29</option>       
+                        <option value="30">30</option>       
+                        <option value="31">31</option> 
+                    </select>
+                    <select name="mes">
+                        <option disabled selected>mes</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                    </select>
+                    <select name="ano">
+                        <option disabled selected>año</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                    </select>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                    <legend>¿DE DONDE ERES?</legend>
+                    <p><label>Ciudad:</label><br> <input type="text" name="ciudad" /></p>
+                    <p><label>Codigo postal:</label><br> <input type="number" name="postal" /></p>
+                    <p><label>Pais:</label><br> 
+                        <select name="pais">
+                                <option disabled selected>pais</option>
+                                <option value="España">España</option>
+                                <option value="Alemania">Alemania</option>
+                                <option value="Rusia">Rusia</option>
+                                <option value="Corea del sur">Corea del sur</option>
+                                <option value="México">México</option>
+                                <option value="Bélgica">Bélgica</option>
+                        </select>
+                    </p>
+            </fieldset>
+
+            <fieldset>
+                    <legend>¿COMO QUIERES INICIAR SESION?</legend>
+                    <p><label>Nombre usuario:</label><br> <input type="text" name="usuario" /></p>
+                    <p><label>Contraseña: *</label><br> <input type="number" name="contrasena" required/></p>
+                    <p><label>Vuelve a escribir la contraseña: *</label><br> 
+                        <input type="number" name="contrasena2" required/></p>
+            </fieldset>
+
+            <fieldset>
+                <legend>CONDICIONES DE REGISTRO</legend>
+                <p><label>Deseo recibir ofertas desde iDESWEB</label><br> 
+                    <input type="radio" name="oferta" value="dia" > Una vez al dia
+                    <input type="radio" name="oferta" value="semana" > Una vez a la semana
+                    <input type="radio" name="oferta" value="mes" > Una vez al mes
+                </p>
+                <p>
+                    <input type="checkbox" name="declaraciones" />
+                    <label>Acepto el acuerdo de servicios, la declaracion de privacidad y la declaracion de uso de cookies</label> 
+                </p>
+                
+            </fieldset>
+
+            <p><input type="submit" id="enviar" value="Enviar" /></p>
+        </form>
+    </body>
+</html>
