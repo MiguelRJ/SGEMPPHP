@@ -1,7 +1,10 @@
 <?php
-include_once "../../biblioteca.php";
-include_once "../../dao.php";
-show_head("Inicio de sesion");
+
+include_once "../../app.php";
+
+session_start(); // Genera un id en el servidor
+
+App::show_head("Inicio de sesion"); // Acceder a static function de App.php
 ?>
 
 <div class="container">
@@ -31,17 +34,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         echo "<p>Debe de introducir un nombre de usuario</p>";
     } else {
         // realizamos la conexion a la base de datos, y se cimprueba si el usuario existe
-        $dao = new Dao();
-        if(!$dao->isConected()){
+        $app = new App();
+        if(!$app->getDao()->isConected()){
             echo "<p>".$dao->error."</p>";
-        } elseif ($dao->validateUser($user,$password)){
-            // guardar la sesion de usuario
+        } elseif ($app->getDao()->validateUser($user,$password)){
+            $app->init_session($user); // guardar la sesion de usuario
             // redirecionamos a otra pagina
-            echo "<script language='javascript'>window.location.href='inventory.php'</script>";
+            echo "<script language='javascript'>window.location.href='../../inventory.php'</script>";
         } else {
-            echo "<p>Usuario incorrecto</p>";
+            echo "<p>Datos incorrectos</p>";
         }
     }
 }
-show_footer();
+App::show_footer();
 ?>
