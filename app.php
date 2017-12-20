@@ -51,7 +51,7 @@ class App {
      * Funcion que redirige a login
      */
     function showLogin(){
-        header('Location: ejercicios/login/login.php');
+        header('Location: login.php');
     }
 
     function invalidate_session(){

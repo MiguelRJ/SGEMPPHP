@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../app.php";
+include_once "app.php";
 
 session_start(); // Genera un id en el servidor
 
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         } elseif ($app->getDao()->validateUser($user,$password)){
             $app->init_session($user); // guardar la sesion de usuario
             // redirecionamos a otra pagina
-            echo "<script language='javascript'>window.location.href='../../inventory.php'</script>";
+            echo "<script language='javascript'>window.location.href='inventory.php'</script>";
         } else {
             echo "<p>Datos incorrectos</p>";
         }
