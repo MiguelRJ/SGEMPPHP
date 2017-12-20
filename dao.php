@@ -6,6 +6,7 @@ define ("MYSQL_USER","www-data");
 define ("MYSQL_PASSWORD","www-data");
 
 define ("TABLE_USER","user");
+define ("TABLE_PRODUCTS","products");
 define ("COLUMN_USER_NAME","name");
 define ("COLUMN_USER_PASSWORD","password");
 
@@ -61,6 +62,21 @@ class Dao {
                 return true;
             } else {
                 return false;
+            }
+        } catch(PDOException $e){
+            
+        }
+    }
+
+    function getProducts(){
+        try {
+            $sql="SELECT id,name,price,description FROM ".TABLE_PRODUCTS;
+            //echo $sql;
+            $statement=$this->con->query($sql);
+            if($statement->rowCount()>0){
+                return $statement;
+            } else {
+                return null;
             }
         } catch(PDOException $e){
             
