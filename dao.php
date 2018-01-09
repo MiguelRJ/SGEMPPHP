@@ -74,7 +74,7 @@ class Dao {
      */
     function getProducts(){
         try {
-            $sql="SELECT id,name,price,description FROM ".TABLE_PRODUCTS;
+            $sql = "SELECT id,name,price,description FROM ".TABLE_PRODUCTS;
             //echo $sql;
             $statement=$this->con->query($sql);
             if($statement->rowCount()>0){

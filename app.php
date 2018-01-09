@@ -82,9 +82,9 @@ class App {
     }
     static function show_logout(){
         echo "
-        <form action='logout.php'>
-        <button type='submit' class='btn btn-primary btn-align-center'>LogOut</button>
-        </form>";
+        <div style='float:right; margin:10px;'>
+            <a href='logout.php'>Log out</a>
+        </div>";
     }
     static function show_footer(){
         print "
