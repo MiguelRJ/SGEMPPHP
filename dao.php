@@ -7,6 +7,7 @@ define ("MYSQL_PASSWORD","www-data");
 
 define ("TABLE_USER","user");
 define ("TABLE_PRODUCTS","products");
+define ("TABLE_DEPENDENCY","dependency");
 define ("COLUMN_USER_NAME","name");
 define ("COLUMN_USER_PASSWORD","password");
 
@@ -68,9 +69,30 @@ class Dao {
         }
     }
 
+    /**
+     * Funcion que devuelve los productos de la base de datos
+     */
     function getProducts(){
         try {
             $sql="SELECT id,name,price,description FROM ".TABLE_PRODUCTS;
+            //echo $sql;
+            $statement=$this->con->query($sql);
+            if($statement->rowCount()>0){
+                return $statement;
+            } else {
+                return null;
+            }
+        } catch(PDOException $e){
+            
+        }
+    }
+
+    /**
+     * Funcion que devuelve las dependencys de la base de datos
+     */
+    function getDependency(){
+        try {
+            $sql="SELECT id,shortname,name,description FROM ".TABLE_DEPENDENCY;
             //echo $sql;
             $statement=$this->con->query($sql);
             if($statement->rowCount()>0){

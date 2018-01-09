@@ -80,6 +80,12 @@ class App {
             <script src='http://code.jquery.com/jquery.js'></script>
             <script src='/sgemp/bootstrap/js/bootstrap.min.js'></script>";
     }
+    static function show_logout(){
+        echo "
+        <form action='logout.php'>
+        <button type='submit' class='btn btn-primary btn-align-center'>LogOut</button>
+        </form>";
+    }
     static function show_footer(){
         print "
             </body>
