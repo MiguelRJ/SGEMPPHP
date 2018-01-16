@@ -8,6 +8,7 @@ define ("MYSQL_PASSWORD","www-data");
 define ("TABLE_USER","user");
 define ("TABLE_PRODUCTS","products");
 define ("TABLE_DEPENDENCY","dependency");
+define ("TABLE_SECTOR","sector");
 define ("COLUMN_USER_NAME","name");
 define ("COLUMN_USER_PASSWORD","password");
 
@@ -100,6 +101,30 @@ class Dao {
             } else {
                 return null;
             }
+        } catch(PDOException $e){
+            
+        }
+    }
+
+    /**
+     * Funcion que devuelve los sectores de una dependencia mediante una sentencia prepare
+     * http://php.net/manual/es/pdo.prepare.php
+     */
+    function getSectorsByIdDependency($idDependency){
+        try {
+            $sql="SELECT id,shortname,name,description,idDependency
+             FROM ".TABLE_SECTOR.
+             " WHERE idDependency = :idDependency";
+            /*
+            $sql="SELECT id,shortname,name,description,idDependency
+             FROM ".TABLE_DEPENDENCY.
+             " WHERE idDependency = ?";
+            */
+            $statement = $this->con->prepare($sql);
+            $statement->bindParam(':idDependency',$idDependency);
+            //return $statement->execute(array(':idDependency'=>$idDependency)); // cuando es ':'
+            // return $statement->execute(array('$idDependency')); // Cuando es '?'
+            return $statement;
         } catch(PDOException $e){
             
         }
