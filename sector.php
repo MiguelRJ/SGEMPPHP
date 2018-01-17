@@ -3,16 +3,19 @@ include_once "app.php";
 $app = new App();
 $app->validate_session();
 
-$idDependency = $_GET['idDependency'];
+if (isset($_GET['idDependency'])){
+    $idDependency = $_GET['idDependency'];
+}
 
 App::show_head("Inventory");
 App::show_logout();
 
 if (!isset($idDependency)){
-
+    $resultset = $app->getDao()->getSectors();
 } else {
-    echo $idDependency;
+    //echo $idDependency;
     $resultset = $app->getDao()->getSectorsByIdDependency($idDependency);
+}
     
     // 1. Si hay un error con la base de datos
     if (!$resultset){
@@ -22,7 +25,7 @@ if (!isset($idDependency)){
     else {
         $resultset->execute();
         $sector = $resultset->fetchAll(PDO::FETCH_ASSOC);
-        print_r($sector);
+        //print_r($sector);
     if(count($sector)==0){
         echo "<p>No hay sectores en la dependencia.</p>";
     }else {
@@ -40,7 +43,7 @@ if (!isset($idDependency)){
               </tr>
             </thead>
             <tbody>';
-              while($row = $sector->fetch(PDO::FETCH_ASSOC)) {
+              foreach ($sector as $row) {
                   echo '<tr>
                   <th scope="row">'.$row["id"].'</th>
                   <td>'.$row["shortname"].'</td>
@@ -57,5 +60,5 @@ if (!isset($idDependency)){
     }
 }
     App::show_footer();
-}
+
 ?>

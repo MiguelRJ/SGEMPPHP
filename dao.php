@@ -130,6 +130,25 @@ class Dao {
         }
     }
 
+    /**
+     * Funcion que devuelve los sectores de una dependencia mediante una sentencia prepare
+     * http://php.net/manual/es/pdo.prepare.php
+     */
+    function getSectors(){
+        try {
+            $sql="SELECT id,shortname,name,description,idDependency
+             FROM ".TABLE_SECTOR;
+            /*
+            $sql="SELECT id,shortname,name,description,idDependency
+             FROM ".TABLE_DEPENDENCY;
+            */
+            $statement = $this->con->prepare($sql);
+            return $statement;
+        } catch(PDOException $e){
+            
+        }
+    }
+
 }
 
 ?>
