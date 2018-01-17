@@ -64,21 +64,31 @@ class App {
 
     /**
      * FUNCIONES DE FORMATO DE PAGINA 
+     * <link href="/sgemp/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+     * <script src="http://code.jquery.com/jquery.js"></script>
+     * <script src="/sgemp/bootstrap/js/bootstrap.min.js"></script>
+     * <script src="/sgemp/bootstrap/js/bootstrap.js"></script>
+     * 
+     * boostrap 3 
+     * <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     * <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     * <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
      */
     static function show_head($titulo){
-        print "
+        print '
         <!DOCTYPE html>
         <html lang=\"es\">
             <head>
-                <title>".$titulo."</title>
+                <title>'.$titulo.'</title>
                 <meta charset=\"utf8\"/>
-                <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                <link href='/sgemp/bootstrap/css/bootstrap.min.css' rel='stylesheet' media='screen'>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
             </head>
-            <body>
-            <script src='http://code.jquery.com/jquery.js'></script>
-            <script src='/sgemp/bootstrap/js/bootstrap.min.js'></script>";
+            <body>';
     }
     static function show_logout(){
         echo "
@@ -86,6 +96,52 @@ class App {
             <a href='logout.php'>Log out</a>
         </div>";
     }
+
+    /**
+     * https://v4-alpha.getbootstrap.com/components/navs/
+     */
+    static function show_navbar(){
+        echo '
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse dual-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php">Inicio</a>
+                </li>   
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Dependency
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="inventory.php">Listar</a>
+                        <a class="dropdown-item" href="#">Añadir</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Sector
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="sector.php">Listar</a>
+                        <a class="dropdown-item" href="#">Añadir</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="navbar-collapse collapse dual-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>';
+    }
+
     static function show_footer(){
         print "
             </body>

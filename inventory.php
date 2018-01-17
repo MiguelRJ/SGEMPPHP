@@ -10,7 +10,7 @@ foreach($dependency as $fila) {
 }*/
 
 App::show_head("Inventory");
-App::show_logout();
+App::show_navbar();
 
 if ($result->rowCount() > 0) {
   echo '<div class="container"><h1>Listado de dependencias</h1>'

@@ -8,7 +8,7 @@ if (isset($_GET['idDependency'])){
 }
 
 App::show_head("Inventory");
-App::show_logout();
+App::show_navbar();
 
 if (!isset($idDependency)){
     $resultset = $app->getDao()->getSectors();
@@ -25,7 +25,6 @@ if (!isset($idDependency)){
     else {
         $resultset->execute();
         $sector = $resultset->fetchAll(PDO::FETCH_ASSOC);
-        //print_r($sector);
     if(count($sector)==0){
         echo "<p>No hay sectores en la dependencia.</p>";
     }else {
@@ -39,7 +38,6 @@ if (!isset($idDependency)){
                 <th scope="col">Short Name</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
-                <th scope="col">Dependency</th>
               </tr>
             </thead>
             <tbody>';
@@ -49,16 +47,13 @@ if (!isset($idDependency)){
                   <td>'.$row["shortname"].'</td>
                   <td>'.$row["name"].'</td>
                   <td>'.$row["description"].'</td>
-                  <td><a href="#"><img src="sector.png" width="30" height="30"/></a></td>
                 </tr>';
               }
 
           echo '</tbody>
           </table>
           </div>';
-          
     }
 }
-    App::show_footer();
-
+App::show_footer();
 ?>
