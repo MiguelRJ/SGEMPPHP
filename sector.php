@@ -31,7 +31,7 @@ if (!isset($idDependency)){
 
             echo '<div class="container"><h1>Listado de sectores</h1>'
             .'Resultados: '.count($sector).
-            '<table class="table table-hover table-dark">
+            '<table class="table table-hover table-dark table-striped">
             <thead>
               <tr>
                 <th scope="col">ID</th>

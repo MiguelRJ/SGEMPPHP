@@ -102,7 +102,7 @@ class App {
      */
     static function show_navbar(){
         echo '
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="background-color: #212529 !important;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -117,7 +117,7 @@ class App {
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="inventory.php">Listar</a>
-                        <a class="dropdown-item" href="#">Añadir</a>
+                        <a class="dropdown-item" href="addDependency.php">Añadir</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

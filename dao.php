@@ -149,6 +149,19 @@ class Dao {
         }
     }
 
+    /**
+     * Funcion que añade dependencys
+     */
+    function addDependency($name,$shortname,$description){
+        try {
+            $sql="INSERT INTO ".TABLE_DEPENDENCY." (`ID`, `shortname`, `name`, `description`) VALUES (NULL,$shortname,$name,$description)";
+            $statement = $this->con->prepare($sql);
+            $statement->execute();
+        } catch(PDOException $e){
+            
+        }
+    }
+
 }
 
 ?>

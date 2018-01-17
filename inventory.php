@@ -27,14 +27,14 @@ if ($result->rowCount() > 0) {
   </thead>
   <tbody>';
     while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo '<tr>
-        <th scope="row">'.$row["id"].'</th>
-        <td>'.$row["shortname"].'</td>
-        <td>'.$row["name"].'</td>
-        <td>'.$row["description"].'</td>
-        <td><a href="sector.php?idDependency='.$row["id"].'"><img src="sector.png" width="30" height="30"/></a></td>
-      </tr>';
-
+        echo '
+        <tr>
+          <th scope="row">'.$row["id"].'</th>
+          <td>'.$row["shortname"].'</td>
+          <td>'.$row["name"].'</td>
+          <td>'.$row["description"].'</td>
+          <td><a href="sector.php?idDependency='.$row["id"].'"><img src="sector.png" width="30" height="30"/></a></td>
+        </tr>';
     }
 } else {
     echo "No hay resultados";
