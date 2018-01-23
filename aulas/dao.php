@@ -1,6 +1,6 @@
 <?php
 
-define("DATABASE","classroms");
+define ("DATABASE","classrooms");
 define ("MYSQL_HOST","mysql:host=localhost;dbname=".DATABASE);
 define ("MYSQL_USER","www-data");
 define ("MYSQL_PASSWORD","www-data");
@@ -9,7 +9,7 @@ define ("TABLE_USER","user");
 define ("TABLE_CLASS","class");
 define ("TABLE_TIMETABLE","timetable");
 define ("TABLE_BOOKING","booking");
-define ("COLUMN_USER_NAME","name");
+define ("COLUMN_USER_NAME","username");
 define ("COLUMN_USER_PASSWORD","password");
 
 class Dao {
