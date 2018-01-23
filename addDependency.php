@@ -13,7 +13,7 @@ App::show_navbar();
         <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>" class="col-12 col-md-4 offset-md-4">
             <div class="form-group">
                 <label for="inputShortname" class="col-form-label">Shortname</label>
-                <input type="text" name="shortname" id="inputShortname" value="" required="true" autofocus="autofocus" class="form-control" maxlength="3" style="text-transform:uppercase;"/>
+                <input type="text" name="shortname" id="inputShortname" value="" required="true" autofocus="autofocus" class="form-control" maxlength="5" style="text-transform:uppercase;"/>
             </div>
             <div class="form-group">
                 <label for="inputName" class="col-form-label">Name</label>
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $app = new App();
         $app->getDao()->addDependency($name,$shortname,$description);
 
-    }
+}
 
 App::show_footer();
 ?>
