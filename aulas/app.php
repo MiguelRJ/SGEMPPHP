@@ -3,7 +3,7 @@
 include_once "dao.php";
 
 class App {
-    
+
     protected $dao;
 
     function __construct(){
@@ -66,6 +66,13 @@ class App {
         </html>";
     }
 
+    /**
+     * Buscar, Reservas, Consultar, Alta, Gestion
+     * inicio.php sera la pantalla donde te saldran tus reservas hechas y pasadas (gestion)
+     * en buscar aula saldran un boton consultar para ver cuando esta reservada
+     * en consultar saldra un boton para reservarla
+     * cuando se reserva un boton para dar de alta la reserva
+     */
     static function show_navbar(){
         echo '
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="background-color: #212529 !important;">
@@ -75,24 +82,16 @@ class App {
         <div class="navbar-collapse collapse dual-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.php">Inicio</a>
+                    <a class="nav-link" href="inicio.php">Inicio</a>
                 </li>   
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Dependency
+                    Aulas
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="inventory.php">Listar</a>
-                        <a class="dropdown-item" href="addDependency.php">Añadir</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Sector
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="sector.php">Listar</a>
-                        <a class="dropdown-item" href="#">Añadir</a>
+                        <a class="dropdown-item" href="#">Buscar</a>
+                        <a class="dropdown-item" href="#">Consultar un aula</a>
+                        <a class="dropdown-item" href="#">Consultar</a>
                     </div>
                 </li>
             </ul>
