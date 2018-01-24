@@ -43,6 +43,20 @@ class App {
         }
     }
 
+    static function show_confirm($message,$iftrue,$iffalse){
+        echo '<script>
+        function cancelBook() {
+            var txt;
+            var r = confirm("'.$message.'");
+            if (r == true) {
+                '.$iftrue.'
+            } else {
+                '.$iffalse.'
+            }
+        }
+        </script>';
+    }
+
     static function show_head($titulo){
         print '
         <!DOCTYPE html>
