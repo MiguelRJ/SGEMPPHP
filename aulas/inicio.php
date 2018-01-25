@@ -6,20 +6,17 @@ $app->validate_session();
 App::show_head("Inicio");
 App::show_navbar();
 
-echo '
+echo'
 <script>
-    function cancelBook($url) {
-        $r = confirm("Esta seguro de querer borrar la reserva seleccionada?");
-        echo "ayuda";
+    function cancelBook($idUser,$idClass,$idTimetable,$date) {
+        $r = confirm(\'Esta seguro de querer borrar la reserva seleccionada?\');
         if ($r == true) {
-            echo "<script language=\"javascript\">window.location.href=\"$url\"</script>
+            window.location.href="cancelar.php?idUser="+$idUser+"&idClass="+$idClass+"&idTimeTable="+$idTimetable+"&date="+$date
         }
     }
 </script>';
 
-
-
-$idUser = $app->getDao()->getUserIdByName($_SESSION['user']); // siempre va a haber un usuario
+$idUser = $app->getDao()->getUserIdByName($_SESSION['user']); // siempre va a haber un usuario porque ha iniciado sesion
 $resultset = $app->getDao()->getBooking($idUser);
 if (!$resultset){
     echo "<p>Error en la sentencia de la base de datos.</p>";
@@ -49,16 +46,14 @@ if(count($booking)==0){
                   <th scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
                   <th scope="row">'.$app->getDao()->getClassShortnameByID($row["_idClass"]).'</th>
                   <th scope="row">'.$app->getDao()->getTimeTableHourByID($row["_idTimeTable"]).'</th>
-                  <th scope="row">'.$row["date"].'</th>
+                  <th scope="row">'.str_replace("-","/",$row["date"]).'</th>
                   <th scope="row">
-                        <button class="btn btn-outline-secondary" onclick="cancelBook(\'cancelar.php?idUser='.$row["_idUser"].'&idClass='.$row["_idClass"].'&idTimeTable='.$row['_idTimeTable'].'&date='.$row['date'].'\')">
+                        <button class="btn btn-outline-secondary" onclick="cancelBook('.$row["_idUser"].','.$row["_idClass"].','.$row["_idTimeTable"].','.str_replace("-","",$row["date"]).')">
                             <img src="img/cancelBook.png" width="30" height="30"/>
                         </button>
                   </th>                  
                 </tr>';
-              }
-// <a href="cancelar.php?idUser='.$row["_idUser"].'&idClass='.$row["_idClass"].'&idTimeTable='.$row['_idTimeTable'].'&date='.$row['date'].'"></a>
-
+              } // str_replace("-","",$row["date"]) // quita los caracteres que separa los numeros y aun asi sirve para usarlo al borrar
           echo '</tbody>
           </table>
           </div>';
