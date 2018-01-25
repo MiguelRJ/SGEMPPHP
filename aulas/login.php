@@ -19,8 +19,11 @@ App::show_head("Inicio de sesion"); // Acceder a static function de App.php
                 <label for="inputPass" class="col-form-label">Contraseña</label>
                 <input type="password" name="password" id="inputPassword" value="" required="true" class="form-control"/>
             </div>
-            <div class="form-group text-right">
+            <div style="float:right;" class="form-group text-right">
                 <button type="submit" class="btn btn-primary btn-align-center">Inicia sesion</button>
+            </div>
+            <div style="float:left;" class="form-group text-left">
+                <a href="registro.php">Registrate</a>
             </div>
         </form>
     </div>

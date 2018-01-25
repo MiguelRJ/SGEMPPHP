@@ -9,6 +9,9 @@ define ("MYSQL_PASSWORD","www-data");
 define ("TABLE_USER","user");
 define ("COLUMN_USER_USERNAME","username");
 define ("COLUMN_USER_PASSWORD","password");
+define ("COLUMN_USER_NAME","name");
+define ("COLUMN_USER_DATE","birthdate");
+define ("COLUMN_USER_EMAIL","email");
 
 // Tabla de las aulas disponibles
 define ("TABLE_CLASS","class");
@@ -66,11 +69,11 @@ class Dao {
                 return false;
             }
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
-    /**
+    /** --------------------------------------------------------------------------------------------------------------------------       USER
      * Devuelve el id de un usuario buscado por su nombre
      */
     function getUserIdByName($username){
@@ -83,7 +86,7 @@ class Dao {
                 return $row["_id"];
             }
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
@@ -100,11 +103,60 @@ class Dao {
                 return $row[COLUMN_USER_USERNAME];
             }
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
     /**
+     * Comprueba si existe un username en la base de datos
+     */
+    function existsUserUsername($username){
+        try {
+            $sql="SELECT ".COLUMN_USER_USERNAME." FROM ".TABLE_USER." WHERE ".COLUMN_USER_USERNAME."='".$username."'";
+            $statement = $this->con->prepare($sql);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if (count($result) == 1) {
+                return true;
+            }
+            return false;
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
+    /**
+     * Comprueba si existe un email en la base de datos
+     */
+    function existsUserEmail($email){
+        try {
+            $sql="SELECT ".COLUMN_USER_EMAIL." FROM ".TABLE_USER." WHERE ".COLUMN_USER_EMAIL."='".$email."'";
+            $statement = $this->con->prepare($sql);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if (count($result) == 1) {
+                return true;
+            }
+            return false;
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
+    function insertUser($username,$password,$name,$date,$email){
+        try {
+            //INSERT INTO `user` (`_id`, `username`, `password`, `name`, `birthdate`, `email`) VALUES (NULL, 'migue', '123', '123', '2018-01-31', '123')
+            $sql="INSERT INTO ".TABLE_USER." (_id, ".COLUMN_USER_USERNAME.", ".COLUMN_USER_PASSWORD.", ".COLUMN_USER_NAME.", ".COLUMN_USER_DATE.", ".COLUMN_USER_EMAIL.") VALUES (NULL, '".$username."', '".SHA1($password)."', '".$name."', '".$date."', '".$email."');";
+            $statement = $this->con->prepare($sql);
+            $statement->execute();
+            return true;
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+            return false;
+        }
+    }
+
+    /** --------------------------------------------------------------------------------------------------------------------------       CLASS
      * Devuelve el nombre corto de un aula buscado por su id
      */
     function getClassShortnameByID($idClass){
@@ -117,11 +169,11 @@ class Dao {
                 return $row[COLUMN_CLASS_SHORTNAME];
             }
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
-    /**
+    /** --------------------------------------------------------------------------------------------------------------------------       TIMETABLE
      * Devuelve la hora de un tramo horario buscado por su id
      */
     function getTimeTableHourByID($idTimeTable){
@@ -134,11 +186,11 @@ class Dao {
                 return $row[COLUMN_TIMETABLE_HOUR];
             }
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
-    /**
+    /** --------------------------------------------------------------------------------------------------------------------------       BOOKING 
      * Devuelve todas las reservas de un usuario concreto buscando por el id del usuario en cuestion
      */
     function getBooking($idUser){
@@ -147,7 +199,7 @@ class Dao {
             $statement = $this->con->prepare($sql);
             return $statement;
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
@@ -164,7 +216,7 @@ class Dao {
             $statement = $this->con->prepare($sql);
             $statement->execute();
         } catch(PDOException $e){
-            
+            $this->error="Error en la conexion: ".$e->getMessage();
         }
     }
 
