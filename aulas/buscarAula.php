@@ -23,6 +23,11 @@ if(count($class)==0){
         <div class="row justify-content-center">
             
             <div class="col-3">';?>
+            <script>
+                function load_home() {
+                    document.getElementById("buscaraulas").innerHTML='<object data="inicio.php" ></object>';
+                }
+            </script>
 
                 <div class="container">
                     <h1>Busqueda aulas</h1>
@@ -59,8 +64,7 @@ if(count($class)==0){
                 </div>
                 
             <?php echo '</div>
-
-            <div class="col-6">
+            <div class="col-6" id="buscaraulas">
                 <h1>Aulas registradas</h1>'.
                 //'Resultados: '.count($booking).
                 '<table class="table table-hover table-dark table-striped">
@@ -76,31 +80,50 @@ if(count($class)==0){
                     </thead>
                 <tbody>';
 
-                foreach ($class as $row) {
-                        echo '<tr>
-                        <th class="text-center align-middle" scope="row">'.$row["name"].'</th>
+                    foreach ($class as $row) {
+                        echo '
+                        <tr>
+                            <th class="text-center align-middle" scope="row">'.$row["name"].'</th>
 
-                        <th class="text-center align-middle" scope="row">'.$row["shortname"].'</th>
+                            <th class="text-center align-middle" scope="row">'.$row["shortname"].'</th>
 
-                        <th class="text-center align-middle" scope="row">'.$row["location"].'</th>
+                            <th class="text-center align-middle" scope="row">'.$row["location"].'</th>
 
-                        <th class="text-center align-middle" scope="row">'.$row["tic"].'</th>
+                            <th class="text-center align-middle" scope="row">'.$row["tic"].'</th>
 
-                        <th class="text-center align-middle" scope="row">'.$row["numpc"].'</th>
+                            <th class="text-center align-middle" scope="row">'.$row["numpc"].'</th>
 
-                        <th class="text-center align-middle" scope="row">Reservar</th>
+                            <th class="text-center align-middle" scope="row">Reservar</th>
 
-                        </th></tr>';
-
-                }
+                            </th>
+                        </tr>';
+                    }
 
                 echo '</tbody></table>
             </div>
         </div>
     </div>';
-
-    
 }
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $name=$_POST['name'];
+    $shortname=$_POST['shortname'];
+    $location=$_POST['location'];
+    if (isset($_POST['tic'])) {
+        $tic = true;
+    } else {
+        $tic = false;
+    }
+    $numpc=$_POST['numpc'];
+
+    $app = new App();
+    if(!$app->getDao()->isConected()){
+        echo "<p>".$app->getDao()->error."</p>";
+    } else {
+        
+    }
+}
+
 
 App::show_footer();
 ?>
