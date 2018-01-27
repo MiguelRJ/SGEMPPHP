@@ -31,6 +31,8 @@ define ("COLUMN_BOOKING_USER","_idUser");
 define ("COLUMN_BOOKING_CLASS","_idClass");
 define ("COLUMN_BOOKING_TIMETABLE","_idTimeTable");
 define ("COLUMN_BOOKING_DATE","date");
+define ("COLUMN_BOOKING_BOOK","bookReason");
+define ("COLUMN_BOOKING_CANCEL","cancelReason");
 
 
 class Dao {
@@ -195,7 +197,7 @@ class Dao {
      */
     function getBooking($idUser){
         try {
-            $sql="SELECT * FROM ".TABLE_BOOKING." WHERE ".COLUMN_BOOKING_USER."=".$idUser;
+            $sql="SELECT * FROM ".TABLE_BOOKING." WHERE ".COLUMN_BOOKING_USER."=".$idUser." ORDER BY ".COLUMN_BOOKING_DATE;
             $statement = $this->con->prepare($sql);
             return $statement;
         } catch(PDOException $e){
@@ -204,12 +206,31 @@ class Dao {
     }
 
     /**
-     * Devuelve todas las reservas de un usuario concreto buscando por el id del usuario en cuestion
+     * elimina una reserva en concreto 
      */
-    function deleteBooking($idUser,$idClass,$idTimeTable,$date){
+    function deleteBookingdeleteBooking($idUser,$idClass,$idTimeTable,$date){
         try {
             $sql="DELETE FROM ".TABLE_BOOKING.
             " WHERE ".COLUMN_BOOKING_USER."='".$idUser."' and ".
+            COLUMN_BOOKING_CLASS."='".$idClass."' and ".
+            COLUMN_BOOKING_TIMETABLE."='".$idTimeTable."' and ".
+            COLUMN_BOOKING_DATE."='".$date."'";
+            $statement = $this->con->prepare($sql);
+            $statement->execute();
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
+    /**
+     * Inserta un motivo de cancelacion en una reserva
+     * UPDATE `booking` SET `cancelReason` = 'caca' WHERE `booking`.`_idUser` = 1 AND `booking`.`_idClass` = 1 AND `booking`.`_idTimeTable` = 1 AND `booking`.`date` = '2018-01-31';
+     */
+    function insertCancelReason($idUser,$idClass,$idTimeTable,$date,$cancelReason){
+        try {
+            $sql="UPDATE ".TABLE_BOOKING.
+            " SET ".COLUMN_BOOKING_CANCEL." = '".$cancelReason.
+            "' WHERE ".COLUMN_BOOKING_USER."='".$idUser."' and ".
             COLUMN_BOOKING_CLASS."='".$idClass."' and ".
             COLUMN_BOOKING_TIMETABLE."='".$idTimeTable."' and ".
             COLUMN_BOOKING_DATE."='".$date."'";

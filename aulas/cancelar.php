@@ -14,6 +14,14 @@ if (isset($_GET['idTimeTable'])){
 if (isset($_GET['date'])){
     $date = $_GET['date'];
 }
-$app->getDao()->deleteBooking($idUser,$idClass,$idTimeTable,$date);
-echo "<script language='javascript'>window.location.href='inicio.php'</script>";
+if (isset($_GET['cancelReason'])){
+    $cancelReason = $_GET['cancelReason'];
+}
+if ($idUser == $app->getDao()->getUserIdByName($_SESSION['user'])) {
+    $app->getDao()->insertCancelReason($idUser,$idClass,$idTimeTable,$date,$cancelReason);
+    echo "<script language='javascript'>window.location.href='inicio.php'</script>";
+} else { // Si el usuario actualmente logeado no es el mismo al que se indica en la url se redireccionara al logout (inyeccion sql)
+    echo "<script language='javascript'>window.location.href='logout.php'</script>";
+}
+
 ?>
