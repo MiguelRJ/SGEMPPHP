@@ -67,13 +67,13 @@ if(count($booking)==0){
                 if ( str_replace("-","",$row["date"]) > date("Ymd")) { // si la fecha de la reserva es mayor a la de hoy lista
                     if ($row["cancelReason"] == null) { // si no tiene motivo de cancelacion esque no ha sido cancelada
                         echo '<tr>
-                        <th class="text-center" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
+                        <th class="text-center align-middle" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
 
-                        <th class="text-center" scope="row">'.$app->getDao()->getClassShortnameByID($row["_idClass"]).'</th>
+                        <th class="text-center align-middle" scope="row">'.$app->getDao()->getClassShortnameByID($row["_idClass"]).'</th>
 
-                        <th class="text-center" scope="row">'.$app->getDao()->getTimeTableHourByID($row["_idTimeTable"]).'</th>
+                        <th class="text-center align-middle" scope="row">'.$app->getDao()->getTimeTableHourByID($row["_idTimeTable"]).'</th>
 
-                        <th class="text-center" scope="row">'.str_replace("-","/",$row["date"]).'</th>
+                        <th class="text-center align-middle" scope="row">'.str_replace("-","/",$row["date"]).'</th>
 
                         <th class="text-center" scope="row">
                                 <button class="btn btn-outline-secondary" onclick="showBookReason(\''.$row["bookReason"].'\')">

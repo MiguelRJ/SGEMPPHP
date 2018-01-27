@@ -160,6 +160,7 @@ class Dao {
 
     /** --------------------------------------------------------------------------------------------------------------------------       CLASS
      * Devuelve el nombre corto de un aula buscado por su id
+     * 
      */
     function getClassShortnameByID($idClass){
         try {
@@ -170,6 +171,19 @@ class Dao {
             foreach($result as $row){
                 return $row[COLUMN_CLASS_SHORTNAME];
             }
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+ 
+    /**
+     * Select todas las aulas
+     */
+    function getClass(){
+        try {
+            $sql="SELECT _id,".COLUMN_CLASS_NAME.", ".COLUMN_CLASS_SHORTNAME.", ".COLUMN_CLASS_LOCATION.", ".COLUMN_CLASS_TIC.", ".COLUMN_CLASS_NUMPC." FROM ".TABLE_CLASS;
+            $statement = $this->con->prepare($sql);
+            return $statement;
         } catch(PDOException $e){
             $this->error="Error en la conexion: ".$e->getMessage();
         }

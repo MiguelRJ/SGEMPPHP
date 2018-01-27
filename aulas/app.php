@@ -43,20 +43,6 @@ class App {
         }
     }
 
-    static function show_confirm($message,$iftrue,$iffalse){
-        echo '<script>
-        function cancelBook() {
-            var txt;
-            var r = confirm("'.$message.'");
-            if (r == true) {
-                '.$iftrue.'
-            } else {
-                '.$iffalse.'
-            }
-        }
-        </script>';
-    }
-
     static function show_head($titulo){
         print '
         <!DOCTYPE html>
@@ -103,7 +89,7 @@ class App {
                     Aulas
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Buscar</a>
+                        <a class="dropdown-item" href="buscarAula.php">Buscar</a>
                         <a class="dropdown-item" href="#">Consultar un aula</a>
                         <a class="dropdown-item" href="#">Consultar</a>
                     </div>
