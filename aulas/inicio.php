@@ -58,7 +58,6 @@ if(count($booking)==0){
                 <th class="text-center" scope="col">Tramo</th>
                 <th class="text-center" scope="col">Fecha</th>
                 <th class="text-center" scope="col">Razon Reserva</th>
-                <th class="text-center" scope="col">Razon Cancelacion</th>
                 <th class="text-center" scope="col">Cancelar Reserva</th>
               </tr>
             </thead>
@@ -81,14 +80,6 @@ if(count($booking)==0){
                                 </button>
                         </th> <th class="text-center" scope="row">';
 
-                            if ($row["cancelReason"] != null) {
-                                echo '<button class="btn btn-outline-secondary" onclick="showCancelReason(\''.$row["cancelReason"].'\')">
-                                    <img src="img/cancel.png" width="30" height="30"/>
-                                </button>';
-                            }
-
-                        echo '</th>   <th class="text-center" scope="row">';
-
                             if ($row["cancelReason"] == null) {
                                 echo '<button class="btn btn-outline-secondary" onclick="cancelBook('.$row["_idUser"].','.$row["_idClass"].','.$row["_idTimeTable"].','.str_replace("-","",$row["date"]).')">
                                     <img src="img/cancelBook.png" width="30" height="30"/>
@@ -103,6 +94,13 @@ if(count($booking)==0){
 
           echo '</tbody></table></div>';
 }
+/* boton cancelar para usarlo despues
+if ($row["cancelReason"] != null) {
+                                echo '<button class="btn btn-outline-secondary" onclick="showCancelReason(\''.$row["cancelReason"].'\')">
+                                    <img src="img/cancel.png" width="30" height="30"/>
+                                </button>';
+                            }
+*/
 
 App::show_footer();
 ?>

@@ -28,8 +28,8 @@ if (!$resultset){
 
     echo '
     <div class=".container-fluid">
-        <div class="row justify-content-center">
-            
+        <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-1"></div>
             <div class="col-3">';
 
                 echo '<div class="container">
@@ -73,6 +73,7 @@ if (!$resultset){
             
             
             echo '</div>
+            <div class="col-1"></div>
             <div class="col-6" id="buscaraulas">
                 <h1>Aulas registradas</h1>
                 Resultados: '.count($class);
@@ -114,30 +115,10 @@ if (!$resultset){
 
                 echo '</tbody></table>
             </div>
+            <div class="col-1"></div>
         </div>
     </div>';
 }
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    $name=$_POST['name'];
-    $shortname=$_POST['shortname'];
-    /* mas opciones de listado
-    $location=$_POST['location'];
-    if (isset($_POST['tic'])) {
-        $tic = true;
-    } else {
-        $tic = false;
-    }
-    $numpc=$_POST['numpc'];
-    */
-    $app = new App();
-    if(!$app->getDao()->isConected()){
-        echo "<p>".$app->getDao()->error."</p>";
-    } else {
-        
-    }
-}
-
 
 App::show_footer();
 ?>
