@@ -95,13 +95,14 @@ if (!$resultset){
                 <tbody>';
 
                     foreach ($class as $row) {
+                        // substr($row["name"] , 0, 30) solo muestra los primeros 30 caracteres
                         echo '
                         <tr>
-                            <th class="text-center align-middle" scope="row">'.$row["name"].'</th>
+                            <th class="text-center align-middle" scope="row">'.substr($row["name"], 0, 30).'</th>
 
-                            <th class="text-center align-middle" scope="row">'.$row["shortname"].'</th>
+                            <th class="text-center align-middle" scope="row">'.substr($row["shortname"], 0, 15).'</th>
 
-                            <th class="text-center align-middle" scope="row">'.$row["location"].'</th>
+                            <th class="text-center align-middle" scope="row">'.substr($row["location"], 0, 15).'</th>
 
                             <th class="text-center align-middle" scope="row">'.$row["tic"].'</th>
 
