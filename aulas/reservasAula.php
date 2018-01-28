@@ -3,7 +3,7 @@ include_once "app.php";
 $app = new App();
 $app->validate_session();
 
-App::show_head("Buscar Aula");
+App::show_head("Reservar aula");
 App::show_navbar();
 
 if (isset($_POST['name'])){
@@ -18,6 +18,12 @@ if (isset($_POST['shortname'])){
     $shortname = null;
 }
 
+if (isset($_POST['date'])){
+    $date = $_POST['date'];
+} else {
+    $date = date("Y-m-d");
+}
+
 $resultset = $app->getDao()->getClassBy($name,$shortname);
 if (!$resultset){
     echo "<p>Error en la sentencia de la base de datos.</p>";
@@ -27,28 +33,23 @@ if (!$resultset){
 } 
 
     echo '
-    <div class=".container-fluid">
-        <div class="row" style="margin-right: 0px;margin-left: 0px;">
-        <div class="col-1"></div>
-            <div class="col-3">';
+    <div class="container-fluid">
+        <div class="row justify-content-center">';
 
-                echo '<div class="container">
-                    <h1>Busca un aula</h1>
-                        <form method="POST" action="'.$_SERVER['PHP_SELF'].'" >
-                            <div class="form-group">
-                                <label for="inputName" class="col-form-label">Nombre</label>
-                                <input type="text" name="name" id="inputName" value="'.$name.'" autofocus="autofocus" class="form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputShorName" class="col-form-label">Nombre corto</label>
-                                <input type="text" name="shortname" id="inputShorName" value="'.$shortname.'" class="form-control"/>
-                            </div>
-                            
-                            <div style="float:right;" class="form-group text-right">
-                                <button type="submit" class="btn btn-primary btn-align-center">Buscar</button>
-                            </div>   
+                echo '<div clas="col-4">
+                        <form method="POST"  action="'.$_SERVER['PHP_SELF'].'" >
+                                <h1>Elija una fecha</h1>
+                                <div class="form-group">
+                                    <label for="inputDate" class="col-form-label">Fecha de reserva</label>
+                                    <input type="date" name="date" id="inputDate" value="'.$date.'" class="form-control"/>
+                                </div>
+                                    
+                                <div style="float:right;" class="form-group text-left">
+                                    <button type="submit" class="btn btn-primary ">Buscar</button>
+                                </div>
+
                         </form>
-                </div>';
+                    </div>';
                 
             /* mas opciones de listado
             <div class="form-group">
@@ -72,9 +73,9 @@ if (!$resultset){
             
             
             
-            echo '</div>
+            echo '
             <div class="col-1"></div>
-            <div class="col-6" id="buscaraulas">
+            <div class="col-7">
                 <h1>Aulas registradas</h1>
                 Resultados: '.count($class);
 
@@ -84,9 +85,9 @@ if (!$resultset){
             echo '<table class="table table-hover table-dark table-striped">
                     <thead>
                         <tr>
-                            <th class="" scope="col">Nombre</th>
-                            <th class="" scope="col">nombre Corto</th>
-                            <th class="" scope="col">Location</th>
+                            <th class="text-center" scope="col">Nombre</th>
+                            <th class="text-center" scope="col">nombre Corto</th>
+                            <th class="text-center" scope="col">Location</th>
                             <th class="text-center" scope="col">Tic</th>
                             <th class="text-center" scope="col">Num PC</th>
                             <th class="text-center" scope="col">Reservar</th>
@@ -109,7 +110,7 @@ if (!$resultset){
                             <th class="text-center align-middle" scope="row">'.$row["numpc"].'</th>
 
                             <th class="text-center align-middle" scope="row">
-                                <button class="btn btn-outline-secondary" onclick="window.location.href=\'reservasAula.php\'">
+                                <button class="btn btn-outline-secondary" onclick="">
                                     <img src="img/confirmBook.png" width="30" height="30"/>
                                 </button>
                             </th>
@@ -120,7 +121,6 @@ if (!$resultset){
 
                 echo '</tbody></table>
             </div>
-            <div class="col-1"></div>
         </div>
     </div>';
 }

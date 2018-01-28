@@ -68,7 +68,7 @@ if(count($booking)==0){
                         echo '<tr>
                         <th class="text-center align-middle" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
 
-                        <th class="text-center align-middle" scope="row">'.$app->getDao()->getClassShortnameByID($row["_idClass"]).'</th>
+                        <th class="text-center align-middle" scope="row">'.substr($app->getDao()->getClassShortnameByID($row["_idClass"]), 0, 15).'</th>
 
                         <th class="text-center align-middle" scope="row">'.$app->getDao()->getTimeTableHourByID($row["_idTimeTable"]).'</th>
 
