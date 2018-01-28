@@ -189,6 +189,27 @@ class Dao {
         }
     }
 
+    /**
+     * Select todas las aulas
+     */
+    function getClassBy($name,$shortname){
+        try {
+            if ($name != null && $shortname != null ) {
+                $sql="SELECT _id,".COLUMN_CLASS_NAME.", ".COLUMN_CLASS_SHORTNAME.", ".COLUMN_CLASS_LOCATION.", ".COLUMN_CLASS_TIC.", ".COLUMN_CLASS_NUMPC." FROM ".TABLE_CLASS." WHERE ".COLUMN_CLASS_NAME." LIKE '%".$name."%' AND ".COLUMN_CLASS_SHORTNAME." LIKE '%".$shortname."%'";
+            } elseif ($name != null) {
+                $sql="SELECT _id,".COLUMN_CLASS_NAME.", ".COLUMN_CLASS_SHORTNAME.", ".COLUMN_CLASS_LOCATION.", ".COLUMN_CLASS_TIC.", ".COLUMN_CLASS_NUMPC." FROM ".TABLE_CLASS." WHERE ".COLUMN_CLASS_NAME." LIKE '%".$name."%'";
+            } elseif ($shortname != null ) {
+                $sql="SELECT _id,".COLUMN_CLASS_NAME.", ".COLUMN_CLASS_SHORTNAME.", ".COLUMN_CLASS_LOCATION.", ".COLUMN_CLASS_TIC.", ".COLUMN_CLASS_NUMPC." FROM ".TABLE_CLASS." WHERE ".COLUMN_CLASS_SHORTNAME." LIKE '%".$shortname."%'";
+            } else {
+                $sql="SELECT _id,".COLUMN_CLASS_NAME.", ".COLUMN_CLASS_SHORTNAME.", ".COLUMN_CLASS_LOCATION.", ".COLUMN_CLASS_TIC.", ".COLUMN_CLASS_NUMPC." FROM ".TABLE_CLASS;
+            }
+            $statement = $this->con->prepare($sql);
+            return $statement;
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
     /** --------------------------------------------------------------------------------------------------------------------------       TIMETABLE
      * Devuelve la hora de un tramo horario buscado por su id
      */

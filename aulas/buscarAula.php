@@ -6,7 +6,19 @@ $app->validate_session();
 App::show_head("Buscar Aula");
 App::show_navbar();
 
-$resultset = $app->getDao()->getClass();
+if (isset($_POST['name'])){
+    $name = $_POST['name'];
+} else {
+    $name = null;
+}
+
+if (isset($_POST['shortname'])){
+    $shortname = $_POST['shortname'];
+} else {
+    $shortname = null;
+}
+
+$resultset = $app->getDao()->getClassBy($name,$shortname);
 if (!$resultset){
     echo "<p>Error en la sentencia de la base de datos.</p>";
 } else {
@@ -14,33 +26,32 @@ if (!$resultset){
     $class= $resultset->fetchAll(PDO::FETCH_ASSOC);
 } 
 
-if(count($class)==0){
-    echo "<p>No existe ninguna aula.</p>";
-} else {
-
     echo '
     <div class=".container-fluid">
         <div class="row justify-content-center">
             
-            <div class="col-3">';?>
-            <script>
-                function load_home() {
-                    document.getElementById("buscaraulas").innerHTML='<object data="inicio.php" ></object>';
-                }
-            </script>
+            <div class="col-3">';
 
-                <div class="container">
+                echo '<div class="container">
                     <h1>Busqueda aulas</h1>
-                        <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>" >
+                        <form method="POST" action="'.$_SERVER['PHP_SELF'].'" >
                             <div class="form-group">
                                 <label for="inputName" class="col-form-label">Nombre</label>
-                                <input type="text" name="name" id="inputName" value="" autofocus="autofocus" class="form-control"/>
+                                <input type="text" name="name" id="inputName" value="'.$name.'" autofocus="autofocus" class="form-control"/>
                             </div>
                             <div class="form-group">
                                 <label for="inputShorName" class="col-form-label">Nombre corto</label>
-                                <input type="text" name="shortname" id="inputShorName" value="" class="form-control"/>
+                                <input type="text" name="shortname" id="inputShorName" value="'.$shortname.'" class="form-control"/>
                             </div>
-                            <div class="form-group">
+                            
+                            <div style="float:right;" class="form-group text-right">
+                                <button type="submit" class="btn btn-primary btn-align-center">Buscar</button>
+                            </div>   
+                        </form>
+                </div>';
+                
+            /* mas opciones de listado
+            <div class="form-group">
                                 <label for="inputLocation" class="col-form-label">Ubicacion</label>
                                 <input type="text" name="location" id="inputLocation" value="" class="form-control"/>
                             </div>
@@ -57,17 +68,19 @@ if(count($class)==0){
                                     </div>
                                 </div>
                             </div>
-                            <div style="float:right;" class="form-group text-right">
-                                <button type="submit" class="btn btn-primary btn-align-center">Buscar</button>
-                            </div>   
-                        </form>
-                </div>
-                
-            <?php echo '</div>
+            */
+            
+            
+            
+            echo '</div>
             <div class="col-6" id="buscaraulas">
-                <h1>Aulas registradas</h1>'.
-                //'Resultados: '.count($booking).
-                '<table class="table table-hover table-dark table-striped">
+                <h1>Aulas registradas</h1>
+                Resultados: '.count($class);
+
+            if(count($class)==0){
+                echo "<p>No existe ninguna aula con los datos indicados</p>";
+            } else {
+            echo '<table class="table table-hover table-dark table-striped">
                     <thead>
                         <tr>
                             <th class="text-center" scope="col">Nombre</th>
@@ -108,6 +121,7 @@ if(count($class)==0){
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     $name=$_POST['name'];
     $shortname=$_POST['shortname'];
+    /* mas opciones de listado
     $location=$_POST['location'];
     if (isset($_POST['tic'])) {
         $tic = true;
@@ -115,7 +129,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $tic = false;
     }
     $numpc=$_POST['numpc'];
-
+    */
     $app = new App();
     if(!$app->getDao()->isConected()){
         echo "<p>".$app->getDao()->error."</p>";
