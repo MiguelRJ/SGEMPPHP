@@ -63,7 +63,6 @@ class Dao {
     function validateUser($user,$password){
         try {
             $sql="SELECT * FROM ".TABLE_USER." WHERE ".COLUMN_USER_USERNAME."='".$user."' AND ".COLUMN_USER_PASSWORD."='".SHA1($password)."'";
-            //echo $sql;
             $statement=$this->con->query($sql);
             if($statement->rowCount()==1){
                 return true;
@@ -210,6 +209,19 @@ class Dao {
         }
     }
 
+    /**
+     * Select todas las aulas
+     */
+    function getClassById($idAula){
+        try {
+            $sql="SELECT ".COLUMN_CLASS_NAME.", ".COLUMN_CLASS_SHORTNAME.", ".COLUMN_CLASS_LOCATION.", ".COLUMN_CLASS_TIC.", ".COLUMN_CLASS_NUMPC." FROM ".TABLE_CLASS." WHERE _id=".$idAula;
+            $statement = $this->con->prepare($sql);
+            return $statement;
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
     /** --------------------------------------------------------------------------------------------------------------------------       TIMETABLE
      * Devuelve la hora de un tramo horario buscado por su id
      */
@@ -233,6 +245,16 @@ class Dao {
     function getBooking($idUser){
         try {
             $sql="SELECT * FROM ".TABLE_BOOKING." WHERE ".COLUMN_BOOKING_USER."=".$idUser." ORDER BY ".COLUMN_BOOKING_DATE;
+            $statement = $this->con->prepare($sql);
+            return $statement;
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
+    function getBookingByClassDate($idClass,$date){
+        try {
+            $sql="SELECT * FROM ".TABLE_BOOKING." WHERE ".COLUMN_BOOKING_CLASS."='".$idClass."' AND ".COLUMN_BOOKING_DATE."='".$date."'";
             $statement = $this->con->prepare($sql);
             return $statement;
         } catch(PDOException $e){
@@ -271,6 +293,53 @@ class Dao {
             COLUMN_BOOKING_DATE."='".$date."'";
             $statement = $this->con->prepare($sql);
             $statement->execute();
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
+    /**
+     * INSERT INTO `booking` (`_idUser`, `_idClass`, `_idTimeTable`, `date`, `bookReason`, `cancelReason`) VALUES ('1', '1', '7', '2018-01-28', '123', NULL);
+     */
+    function insertBookReason($idUser,$idClass,$idTimeTable,$date,$bookReason){
+        try {
+            $sql="INSERT INTO ".TABLE_BOOKING.
+            " ( ".COLUMN_BOOKING_USER.", ".
+            COLUMN_BOOKING_CLASS.", ".
+            COLUMN_BOOKING_TIMETABLE.", ".
+            COLUMN_BOOKING_DATE.", ".
+            COLUMN_BOOKING_BOOK." ) ".
+            "VALUES ('".$idUser."', '".$idClass."', '".$idTimeTable."', '".$date."', '".$bookReason."') ";
+            $statement = $this->con->prepare($sql);
+            $statement->execute();
+        } catch(PDOException $e){
+            $this->error="Error en la conexion: ".$e->getMessage();
+        }
+    }
+
+    /**
+     * 
+     */
+    /*
+    SELECT timetable._id, timetable.hour,
+     booking._idUser, booking._idClass, booking._idTimetable, booking.date, booking.bookReason, booking.cancelReason 
+     FROM timetable LEFT JOIN booking 
+     on timetable._id=booking._idTimeTable
+     AND booking._idClass='1' 
+     AND booking.date='2018-01-31' 
+     ORDER BY timetable._id ASC
+    */
+    function getBookingJoinTimetableByIdClasDate($idClass,$date){
+        try {
+            $sql = "SELECT timetable._id, timetable.hour, ".
+            "booking._idUser, booking._idClass, booking._idTimetable, booking.date, booking.bookReason, booking.cancelReason ".
+            "FROM timetable LEFT JOIN booking ".
+            "ON timetable._id=booking._idTimeTable ".
+            "AND booking._idClass='".$idClass."' ".
+            "AND booking.date='".$date."' ".
+            "ORDER BY timetable._id ASC";
+            $statement = $this->con->prepare($sql);
+            return $statement;
         } catch(PDOException $e){
             $this->error="Error en la conexion: ".$e->getMessage();
         }

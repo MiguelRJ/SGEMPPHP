@@ -109,7 +109,7 @@ if (!$resultset){
                             <th class="text-center align-middle" scope="row">'.$row["numpc"].'</th>
 
                             <th class="text-center align-middle" scope="row">
-                                <button class="btn btn-outline-secondary" onclick="window.location.href=\'reservasAula.php\'">
+                                <button class="btn btn-outline-secondary" onclick="window.location.href=\'reservasAula.php?_id='.$row["_id"].'\'">
                                     <img src="img/confirmBook.png" width="30" height="30"/>
                                 </button>
                             </th>

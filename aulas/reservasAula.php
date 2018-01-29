@@ -6,6 +6,12 @@ $app->validate_session();
 App::show_head("Reservar aula");
 App::show_navbar();
 
+if (isset($_GET['_id'])){
+    $idClass = $_GET['_id'];
+} else {
+    $idClass = null;
+}
+
 if (isset($_POST['name'])){
     $name = $_POST['name'];
 } else {
@@ -24,12 +30,46 @@ if (isset($_POST['date'])){
     $date = date("Y-m-d");
 }
 
-$resultset = $app->getDao()->getClassBy($name,$shortname);
+if (isset($_POST['id'])){
+    $id = $_POST['id'];
+} else {
+    $id = $idClass;
+}
+
+$resultset = $app->getDao()->getClassById($id);
+$resultBokings = $app->getDao()->getBookingJoinTimetableByIdClasDate($id,$date);
 if (!$resultset){
     echo "<p>Error en la sentencia de la base de datos.</p>";
 } else {
     $resultset->execute();
     $class= $resultset->fetchAll(PDO::FETCH_ASSOC);
+} 
+
+echo'<script>
+    function showBookReason($bookReason) {
+        alert(\'Motivo de la reserva: \n\'+$bookReason);
+    }
+</script>';
+
+echo'<script>
+    function confirmBook($idUser,$idClass,$idTimetable,$date) {
+        $r = confirm("Esta seguro de querer reservar la fecha seleccionada?");
+        if ($r == true) {
+            $bookReason = prompt("Indique motivo de la reserva. \n(Debe escribir entre 15 y 250 caracteres para poder reservar)");
+            if ($bookReason.length > 15 && $bookReason.length < 250) {
+                window.location.href="confirmar.php?idUser=" +$idUser+ "&idClass=" +$idClass+ "&idTimeTable=" +$idTimetable+ "&date=" +$date+ "&bookReason=" +$bookReason
+            } else {
+                alert(\'Longitud incorrecta, no se ha podido cancelar, vuelva a intentarlo de nuevo.\');
+            }
+        }
+    }
+</script>';
+
+if (!$resultBokings ){
+    echo "<p>Error en la sentencia de la base de datos.</p>";
+} else {
+    $resultBokings ->execute();
+    $books= $resultBokings ->fetchAll(PDO::FETCH_ASSOC);
 } 
 
     echo '
@@ -41,7 +81,11 @@ if (!$resultset){
                                 <h1>Elija una fecha</h1>
                                 <div class="form-group">
                                     <label for="inputDate" class="col-form-label">Fecha de reserva</label>
-                                    <input type="date" name="date" id="inputDate" value="'.$date.'" class="form-control"/>
+                                    <input type="date" name="date" id="inputDate" value="'.$date.'" class="form-control" min="'.date("Y-m-d").'"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="inputId" value="'.$id.'" class="form-control"/>
                                 </div>
                                     
                                 <div style="float:right;" class="form-group text-left">
@@ -76,44 +120,59 @@ if (!$resultset){
             echo '
             <div class="col-1"></div>
             <div class="col-7">
-                <h1>Aulas registradas</h1>
-                Resultados: '.count($class);
+                <h1>Reservas del aula "'.substr($app->getDao()->getClassShortnameByID($id), 0, 15).'" para el dia "'.$date.'"</h1>
+                Resultados: '.count($books);
 
-            if(count($class)==0){
+            if(count($books)==0){
                 echo "<p>No existe ninguna aula con los datos indicados</p>";
             } else {
             echo '<table class="table table-hover table-dark table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center" scope="col">Nombre</th>
-                            <th class="text-center" scope="col">nombre Corto</th>
-                            <th class="text-center" scope="col">Location</th>
-                            <th class="text-center" scope="col">Tic</th>
-                            <th class="text-center" scope="col">Num PC</th>
+                            <th class="text-center" scope="col">Tramo</th>
+                            
+                            <th class="text-center" scope="col">Usuario</th>
+                            <th class="text-center" scope="col">Razon Reserva</th>
                             <th class="text-center" scope="col">Reservar</th>
                         </tr>
                     </thead>
                 <tbody>';
 
-                    foreach ($class as $row) {
+                    foreach ($books as $row) {
                         // substr($row["name"] , 0, 30) solo muestra los primeros 30 caracteres
+                        //<th class="text-center align-middle" scope="row">'.substr($app->getDao()->getClassShortnameByID($row["_idClass"]), 0, 15).'</th>
                         echo '
                         <tr>
-                            <th class=" align-middle" scope="row">'.substr($row["name"], 0, 30).'</th>
+                            <th class="text-center align-middle" scope="row">'.$row["hour"].'</th>
 
-                            <th class=" align-middle" scope="row">'.substr($row["shortname"], 0, 15).'</th>
+                            
 
-                            <th class=" align-middle" scope="row">'.substr($row["location"], 0, 15).'</th>
+                            <th class="text-center align-middle" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
+                            
+                            <th class="text-center" scope="row">';
 
-                            <th class="text-center align-middle" scope="row">'.$row["tic"].'</th>
+                            if ($row["bookReason"] != null) {
+                                echo '
+                                <button class="btn btn-outline-secondary" onclick="showBookReason(\''.$row["bookReason"].'\')">
+                                    <img src="img/book.png" width="30" height="30"/>
+                                </button>';
+                            } else {
 
-                            <th class="text-center align-middle" scope="row">'.$row["numpc"].'</th>
+                            }
 
-                            <th class="text-center align-middle" scope="row">
-                                <button class="btn btn-outline-secondary" onclick="">
+                            echo'
+                            </th> <th class="text-center align-middle" scope="row">';
+                                
+                            if ($row["bookReason"] == null) {
+                                echo '
+                                <button class="btn btn-outline-secondary" onclick="confirmBook('.$app->getDao()->getUserIdByName($_SESSION['user']).','.$id.','.$row["_id"].','.str_replace("-","",$date).')">
                                     <img src="img/confirmBook.png" width="30" height="30"/>
-                                </button>
-                            </th>
+                                </button>';
+                            } else {
+                                echo 'Fecha reservada.';
+                            }
+
+                            echo '</th>
 
                             </th>
                         </tr>';

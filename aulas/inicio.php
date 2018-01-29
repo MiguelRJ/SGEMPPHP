@@ -12,10 +12,10 @@ echo'<script>
         $r = confirm("Esta seguro de querer borrar la reserva seleccionada?");
         if ($r == true) {
             $cancelReason = prompt("Indique motivo de cancelacion. \n(Debe escribir entre 15 y 250 caracteres para poder cancelar)");
-            if ($cancelReason.length > 5 || $cancelReason > 250) {
+            if ($cancelReason.length > 15 && $cancelReason.length < 250) {
                 window.location.href="cancelar.php?idUser=" +$idUser+ "&idClass=" +$idClass+ "&idTimeTable=" +$idTimetable+ "&date=" +$date+ "&cancelReason=" +$cancelReason
             } else {
-                alert(\'Longitud incorrecta vuelva a intentarlo de nuevo.\');
+                alert(\'Longitud incorrecta, no se ha podido cancelar, vuelva a intentarlo de nuevo.\');
             }
         }
     }
@@ -63,7 +63,7 @@ if(count($booking)==0){
             </thead>
             <tbody>';
               foreach ($booking as $row) {
-                if ( str_replace("-","",$row["date"]) > date("Ymd")) { // si la fecha de la reserva es mayor a la de hoy lista
+                if ( str_replace("-","",$row["date"]) >= date("Ymd")) { // si la fecha de la reserva es mayor a la de hoy lista
                     if ($row["cancelReason"] == null) { // si no tiene motivo de cancelacion esque no ha sido cancelada
                         echo '<tr>
                         <th class="text-center align-middle" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
