@@ -52,18 +52,43 @@ class App {
                 <meta charset="utf8"/>
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="icon" href="img/icon.png">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+                <style>
+                    .footer {
+                        position: fixed;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        background-color: #212529;
+                        color: white;
+                        text-align: center;
+                        vertical-align:middle;
+                    }
+                    .table {
+                        margin-bottom:50px;
+                    }
+                    .navbar {
+                        position: fixed;
+                        width:100%;
+                        top: 0;
+                        z-index:10;
+                    }
+                </style>
             </head>
-            <body>';
+            <body style="marging-bottom:50px;margin-top:70px;z-index:1;background:#FAFAD2; ">';
     }
 
     static function show_footer(){
-        print "
+        print '
+        <div class="footer">
+            <p><em>Miguel Rodriguez Jimenez ®</em></p>
+        </div>
             </body>
-        </html>";
+        </html>';
     }
 
     /**
@@ -83,6 +108,10 @@ class App {
             <div class="navbar-collapse collapse dual-collapse">
 
                 <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <h3 style="color:white;">IES Portada</h3>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="inicio.php">Gestion reservas</a>

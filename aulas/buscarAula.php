@@ -81,7 +81,7 @@ if (!$resultset){
                             <th class="" scope="col">Location</th>
                             <th class="text-center" scope="col">Tic</th>
                             <th class="text-center" scope="col">Num PC</th>
-                            <th class="text-center" scope="col">Reservar</th>
+                            <th class="text-center" scope="col">Disponibilidad</th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -101,7 +101,7 @@ if (!$resultset){
 
                                 <th class="text-center align-middle" scope="row">
                                     <button class="btn btn-outline-secondary" onclick="window.location.href=\'reservasAula.php?_id='.$row["_id"].'\'">
-                                        <img src="img/confirmBook.png" width="30" height="30"/>
+                                        <img src="img/seeBook.png" width="30" height="30"/>
                                     </button>
                                 </th>
 
