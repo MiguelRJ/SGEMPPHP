@@ -74,37 +74,44 @@ class App {
      * cuando se reserva un boton para dar de alta la reserva
      */
     static function show_navbar(){
-        echo '
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="background-color: #212529 !important;">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse dual-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="inicio.php">Inicio</a>
-                </li>   
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Aulas
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="buscarAula.php">Buscar</a>
-                        <a class="dropdown-item" href="#">Consultar un aula</a>
-                        <a class="dropdown-item" href="#">Consultar</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="navbar-collapse collapse dual-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Log Out</a>
-                </li>
-            </ul>
-        </div>
-    </nav>';
+        echo '<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="background-color: #212529 !important;">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="navbar-collapse collapse dual-collapse">
+
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="inicio.php">Gestion reservas</a>
+                    </li>   
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Aulas</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="buscarAula.php">Buscar</a>
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+            
+            <div class="navbar-collapse collapse dual-collapse">
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Log Out</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>';
     }
 
 }

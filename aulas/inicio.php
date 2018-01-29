@@ -45,40 +45,45 @@ if (!$resultset){
 } 
 
 if(count($booking)==0){
+
     echo "<p>No tienes ningun aula reservada.</p>";
+    
 } else {
+
     echo '<div class="container">
-    <h1>Listado de tus proximas reservas</h1>'.
-            //'Resultados: '.count($booking).
-            '<table class="table table-hover table-dark table-striped">
+        <h1>Listado de tus proximas reservas</h1>
+        <table class="table table-hover table-dark table-striped">
             <thead>
-              <tr>
-                <th class="text-center" scope="col">Usuario</th>
-                <th class="text-center" scope="col">Aula</th>
-                <th class="text-center" scope="col">Tramo</th>
-                <th class="text-center" scope="col">Fecha</th>
-                <th class="text-center" scope="col">Razon Reserva</th>
-                <th class="text-center" scope="col">Cancelar Reserva</th>
-              </tr>
+                <tr>
+                    <th class="text-center" scope="col">Usuario</th>
+                    <th class="text-center" scope="col">Aula</th>
+                    <th class="text-center" scope="col">Tramo</th>
+                    <th class="text-center" scope="col">Fecha</th>
+                    <th class="text-center" scope="col">Razon Reserva</th>
+                    <th class="text-center" scope="col">Cancelar Reserva</th>
+                </tr>
             </thead>
             <tbody>';
-              foreach ($booking as $row) {
-                if ( str_replace("-","",$row["date"]) >= date("Ymd")) { // si la fecha de la reserva es mayor a la de hoy lista
-                    if ($row["cancelReason"] == null) { // si no tiene motivo de cancelacion esque no ha sido cancelada
-                        echo '<tr>
-                        <th class="text-center align-middle" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
+                foreach ($booking as $row) {
 
-                        <th class="text-center align-middle" scope="row">'.substr($app->getDao()->getClassShortnameByID($row["_idClass"]), 0, 15).'</th>
+                    if ( str_replace("-","",$row["date"]) >= date("Ymd")) { // si la fecha de la reserva es mayor a la de hoy lista
 
-                        <th class="text-center align-middle" scope="row">'.$app->getDao()->getTimeTableHourByID($row["_idTimeTable"]).'</th>
+                        if ($row["cancelReason"] == null) { // si no tiene motivo de cancelacion esque no ha sido cancelada
 
-                        <th class="text-center align-middle" scope="row">'.str_replace("-","/",$row["date"]).'</th>
+                            echo '<tr>
+                            <th class="text-center align-middle" scope="row">'.$app->getDao()->getUSerUsernameByID($row["_idUser"]).'</th>
 
-                        <th class="text-center" scope="row">
-                                <button class="btn btn-outline-secondary" onclick="showBookReason(\''.$row["bookReason"].'\')">
-                                    <img src="img/book.png" width="30" height="30"/>
-                                </button>
-                        </th> <th class="text-center" scope="row">';
+                            <th class="text-center align-middle" scope="row">'.substr($app->getDao()->getClassShortnameByID($row["_idClass"]), 0, 15).'</th>
+
+                            <th class="text-center align-middle" scope="row">'.$app->getDao()->getTimeTableHourByID($row["_idTimeTable"]).'</th>
+
+                            <th class="text-center align-middle" scope="row">'.str_replace("-","/",$row["date"]).'</th>
+
+                            <th class="text-center" scope="row">
+                                    <button class="btn btn-outline-secondary" onclick="showBookReason(\''.$row["bookReason"].'\')">
+                                        <img src="img/book.png" width="30" height="30"/>
+                                    </button>
+                            </th> <th class="text-center" scope="row">';
 
                             if ($row["cancelReason"] == null) {
                                 echo '<button class="btn btn-outline-secondary" onclick="cancelBook('.$row["_idUser"].','.$row["_idClass"].','.$row["_idTimeTable"].','.str_replace("-","",$row["date"]).')">
@@ -86,21 +91,19 @@ if(count($booking)==0){
                                 </button>';
                             }
 
-                        echo '</th></tr>';
-                    }
-                }
+                            echo '</th></tr>';
 
-              } // str_replace("-","",$row["date"]) // quita los caracteres que separa los numeros y aun asi sirve para usarlo en mysql
+                        } // if ($row["cancelReason"] == null)
 
-          echo '</tbody></table></div>';
+                    } // if ( str_replace("-","",$row["date"]) >= date("Ymd"))
+
+                } // str_replace("-","",$row["date"]) // quita los caracteres que separa los numeros y aun asi sirve para usarlo en mysql
+
+            echo '</tbody>
+        </table>
+    </div>';
+
 }
-/* boton cancelar para usarlo despues
-if ($row["cancelReason"] != null) {
-                                echo '<button class="btn btn-outline-secondary" onclick="showCancelReason(\''.$row["cancelReason"].'\')">
-                                    <img src="img/cancel.png" width="30" height="30"/>
-                                </button>';
-                            }
-*/
 
 App::show_footer();
 ?>
