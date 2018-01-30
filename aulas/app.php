@@ -85,7 +85,7 @@ class App {
     static function show_footer(){
         print '
         <div class="footer">
-            <p><em>Miguel Rodriguez Jimenez ®</em></p>
+            <em>Pagina realizada por Miguel Rodriguez Jimenez ®</em>
         </div>
             </body>
         </html>';
