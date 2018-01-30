@@ -41,8 +41,8 @@ class Dao {
     public $error;
     
     function __construct(){
-        try{
-            $this->con=new PDO(MYSQL_HOST,MYSQL_USER,MYSQL_PASSWORD);
+        try{ // http://www.danibarreno.com/la-solucion-a-los-problemas-con-los-acentos-en-php-mysql-y-html/ 
+            $this->con=new PDO(MYSQL_HOST,MYSQL_USER,MYSQL_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
         } catch(PDOException $e){
             $this->error="Error en la conexion: ".$e->getMessage();
             $this->con=null;

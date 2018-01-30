@@ -49,8 +49,8 @@ class App {
         <html lang="es">
             <head>
                 <title>'.$titulo.'</title>
-                <meta charset="utf8"/>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta charset="UTF-8"/>
+                <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="img/icon.png">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -85,7 +85,7 @@ class App {
     static function show_footer(){
         print '
         <div class="footer">
-            <em>Pagina realizada por Miguel Rodriguez Jimenez ®</em>
+            <em>Página realizada por Miguel Rodriguez Jimenez ®</em>
         </div>
             </body>
         </html>';
